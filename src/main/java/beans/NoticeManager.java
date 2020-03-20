@@ -19,32 +19,30 @@ public class NoticeManager implements Serializable {
 	private NoticeOfArrival notice = new NoticeOfArrival();
 	@Resource(mappedName = "jms/myLog")
 	private Queue logMessages;
-	@Resource(mappedName = "jms/TopicOne")
-	private Topic TopicOne;
-	@Resource(mappedName = "jms/TopicTwo")
-	private Topic TopicTwo;
 	@Resource(mappedName = "jms/myMessageFactory")
 	private ConnectionFactory logFactory;
-
-
 	
 	public void setNotice( NoticeOfArrival notice ) {
 		this.notice = notice;
 	}
 	
-	
 	public NoticeOfArrival getNotice() { return notice ; }
 
-	
 	public void mesg() {
-		System.out.println("NoticeManager: mesg()");
-		try (
-				JMSContext context = logFactory.createContext()) {
-				JMSProducer mp = context.createProducer();
-				Message tm = context.createTextMessage();
-				mp.send(logMessages, tm);
-		} catch (Exception e) {
-			System.out.println("Error:" + e);
-		}
+		System.out.println("Message Sending");
+		String j = notice.toJsonString();
+		sendMesg(j);
+		System.out.println("Message Sent Successfully!");
+	}
+
+//	public String toJSON(NoticeOfArrival notice){
+//		return "{\"id\": "+notice.getId()+", \"mmsi\": " + notice.getMmsi() + ", \"client\": " + notice.getClient() + ", \"name\": " + notice.getName() + " }";
+//	}
+
+	public void sendMesg(String message){
+		JMSContext context = logFactory.createContext();
+		JMSProducer mp = context.createProducer();
+		Message tm = context.createTextMessage(message);
+		mp.send(logMessages, tm);
 	}
 }

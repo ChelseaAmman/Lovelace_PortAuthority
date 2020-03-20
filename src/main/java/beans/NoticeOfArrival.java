@@ -3,6 +3,10 @@ package beans;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonWriter;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.io.StringWriter;
 
@@ -15,9 +19,9 @@ public class NoticeOfArrival implements Serializable {
 
 	// Uncomment if you want to use this bean as a transport object for JPA (from PortAuthority component)
 	// The extra annotations allow for using an auto-increment key in MySQL (see description of NoticeOfArrival table)
-	//@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
-	//@Column(name = "id", updatable = false, nullable = false)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
 	private String name;
 	private int mmsi;
@@ -40,8 +44,16 @@ public class NoticeOfArrival implements Serializable {
 		return name;
 	}
 
+	public void setClient(int client) {
+		this.client = client;
+	}
+
 	public int getClient() {
 		return client;
+	}
+
+	public void setMmsi(int mmsi) {
+		this.mmsi = mmsi;
 	}
 
 	public int getMmsi() {

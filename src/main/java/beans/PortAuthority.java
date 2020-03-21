@@ -9,7 +9,7 @@ import javax.jms.TextMessage;
 import javax.json.*;
 import java.io.StringReader;
 
-@MessageDriven(mappedName = "jms/myQueue")
+@MessageDriven(mappedName = "jms/myLog")
 public class PortAuthority implements MessageListener {
 
     @Resource(mappedName = "jms/NoAClientOne")
@@ -18,6 +18,8 @@ public class PortAuthority implements MessageListener {
     private Queue topic2;
 
     public PortAuthority(){}
+
+    NoticeManager notice = new NoticeManager();
 
     private void sendMessage(String msg){
         //TODO: whoever implements the factory will also need to implement sendMessage. Please send a message to topic1 and topic in their respective mappings

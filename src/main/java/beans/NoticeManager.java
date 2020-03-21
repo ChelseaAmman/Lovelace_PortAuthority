@@ -35,10 +35,6 @@ public class NoticeManager implements Serializable {
 		System.out.println("Message Sent Successfully!");
 	}
 
-//	public String toJSON(NoticeOfArrival notice){
-//		return "{\"id\": "+notice.getId()+", \"mmsi\": " + notice.getMmsi() + ", \"client\": " + notice.getClient() + ", \"name\": " + notice.getName() + " }";
-//	}
-
 	public void sendMesg(String message){
 		JMSContext context = logFactory.createContext();
 		JMSProducer mp = context.createProducer();
